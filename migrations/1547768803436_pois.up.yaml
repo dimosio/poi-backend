@@ -1,0 +1,17 @@
+- args:
+    cascade: false
+    sql: |-
+      CREATE TABLE public.pois (
+          id serial NOT NULL UNIQUE,
+          "createdAt" timestamp with time zone DEFAULT now() NOT NULL,
+          "updatedAt" timestamp with time zone DEFAULT now() NOT NULL,
+          "authorId" integer NOT NULL,
+          "text" text NOT NULL,
+          "location" GEOGRAPHY(Point),
+          PRIMARY KEY ("id")
+      );
+  type: run_sql
+- args:
+    name: pois
+    schema: public
+  type: add_existing_table_or_view

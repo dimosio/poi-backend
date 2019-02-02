@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "public"."pois" ADD FOREIGN KEY ("authorId") REFERENCES "public"."users"
+      ("id")
+  type: run_sql

@@ -1,0 +1,25 @@
+version: "3.6"
+services:
+  postgres:
+    container_name: qr-codes-db
+    image: mdillon/postgis
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  graphql-engine:
+    container_name: qr-codes-backend
+    image: hasura/graphql-engine:v1.0.0-alpha37
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "postgres"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@postgres:5432/postgres
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+    command:
+      - graphql-engine
+      - serve
+      - --enable-console
+volumes:
+  db_data:

@@ -1,0 +1,3 @@
+- args:
+    sql: ALTER TABLE "public"."pois" ADD COLUMN "info_references" text NULL
+  type: run_sql

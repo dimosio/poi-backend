@@ -1,4 +1,4 @@
-FROM node:7.10.0-alpine
+FROM node:10.15.1-alpine
 RUN apk update && apk add tini socat git openssh-client && rm -rf /var/cache/apk/*
 
 ENTRYPOINT ["/sbin/tini", "--"]
@@ -12,7 +12,7 @@ COPY package.json .
 RUN npm install
 
 COPY tsconfig.json .
-COPY src src
+COPY index.ts index.ts
 
 RUN ./node_modules/.bin/tsc
 CMD npm run deploy

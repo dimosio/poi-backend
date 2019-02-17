@@ -1,0 +1,33 @@
+{
+  "name": "projects-backend",
+  "version": "1.0.0",
+  "description": "Backend for projects",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/graphql": "^14.0.3",
+    "@types/node-fetch": "^2.1.4",
+    "@types/request": "^2.48.1",
+    "@types/request-promise": "^4.1.42",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.9",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development ts-node src/index.ts",
+    "dev": "./node_modules/nodemon/bin/nodemon.js",
+    "deploy": "NODE_ENV=production ./node_modules/.bin/tsc && node ./dist/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.geekbot.io:vg/gtd/core.git"
+  }
+}

@@ -4,7 +4,7 @@
     "target": "ES6",
     "esModuleInterop": true,
     "outDir": "dist",
-    "rootDirs": ["src"],
+    "rootDirs": ["."],
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noUnusedParameters": true,
@@ -17,7 +17,7 @@
     "typeRoots": ["./types", "./node_modules/@types"],
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*", "src/types/*"]
+      "*": ["node_modules/*", "types/*"]
     }
   }
 }

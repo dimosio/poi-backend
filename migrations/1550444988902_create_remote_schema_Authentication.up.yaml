@@ -1,0 +1,7 @@
+- args:
+    definition:
+      forward_client_headers: true
+      headers: []
+      url_from_env: AUTHENTICATION_GRAPHQL_ENDPOINT
+    name: Authentication
+  type: add_remote_schema

@@ -1,0 +1,7 @@
+- args:
+    definition:
+      forward_client_headers: true
+      headers: []
+      url: http://core:4000/v1alpha1/graphql
+    name: Authentication
+  type: add_remote_schema

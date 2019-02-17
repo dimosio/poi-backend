@@ -17,9 +17,27 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:@postgres:5432/postgres
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ACCESS_KEY: "123"
+      HASURA_GRAPHQL_JWT_SECRET: '{"type":"RS256", "key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAt5U/JYr1ZBEY2zy5Q4eH\nM7YQwLB+wDbZjBW8SnQJ4at5TRaSpHxjg6v9jF/onT2ZHh2so+TZ+KJppUvdHcyp\nqSMr6miw4P8Jyey5AOp8m2fz4cdG/1pugYHXCnYGPYNQK2wHBeKDSz4TG8t7esvw\naEfJlZxE4SDDOGWvfPLz/w/U1aVRpWnbE6w7uyrvZ7HGlpHQN36YvsgDK2CHSDAW\nit+8hcXesMCuFtHJo0LnjbKnQHGE4amwAjtwHfuBfBP8G8CSgMrGP++pM6DeRbRO\nUXqvYNUKza5To8TqUpTMsFi/THyCsDkP500GcyJC7EoOC83gONayYtFmYO0NBLw7\nMwIDAQAB\n-----END PUBLIC KEY-----\n"}'
     command:
       - graphql-engine
       - serve
       - --enable-console
+  core:
+    build: .
+    command: "npm run dev"
+    environment:
+      TS_NODE_CACHE_DIRECTORY: /tmp/
+      GEEKBOT_API_KEY: "hVmYp3s6v9y&E)H@McQfTjWnZr4t7w"
+      GEEKBOT_API_URL: http://192.168.56.101
+      GRAPHQL_API_URL: http://graphql-engine:8080
+      DOMAIN: http://localhost:5000
+      HASURA_ACCESS_KEY: 123
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - "./:/usr/app"
 volumes:
   db_data:

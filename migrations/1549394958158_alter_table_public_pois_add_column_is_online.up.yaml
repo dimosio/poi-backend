@@ -1,0 +1,4 @@
+- args:
+    sql: ALTER TABLE "public"."pois" ADD COLUMN "is_online" boolean NOT NULL DEFAULT
+      false
+  type: run_sql

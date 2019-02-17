@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "rootDirs": ["src"],
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strict": true,
+    "lib": ["esnext"],
+    "sourceMap": true,
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/types/*"]
+    }
+  }
+}

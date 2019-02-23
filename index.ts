@@ -88,7 +88,8 @@ const resolvers = {
             "x-hasura-user-id": user.id
           }
         },
-        process.env.JWT_SECRET
+        process.env.JWT_SECRET,
+        { algorithm: "RS256" }
       );
 
       return { token };

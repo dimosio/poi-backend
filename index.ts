@@ -1,7 +1,20 @@
-const { ApolloServer, gql } = require("apollo-server");
-const { GraphQLClient } = require("graphql-request");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { ApolloServer, gql } from "apollo-server";
+import { GraphQLClient } from "graphql-request";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import fs from "fs";
+
+declare var process: {
+  env: {
+    ENDPOINT: string;
+    HASURA_ACCESS_KEY: string;
+    JWT_SECRET: string;
+    NODE_ENV: string;
+  };
+};
+
+const privateKey = fs.readFileSync("private.key");
+const publicKey = fs.readFileSync("public.pem");
 
 const graphql = new GraphQLClient(process.env.ENDPOINT, {
   headers: {
@@ -27,8 +40,8 @@ const SIGNUP = `
 `;
 
 const ME = `
-  query me($id: uuid) {
-    users(where:{id: {_eq: $id}}) { email }
+  query me($id: Int) {
+    users(where:{id: {_eq: $id}}) { id }
   }
 `;
 
@@ -45,6 +58,7 @@ const typeDefs = gql`
   }
   type User {
     email: String
+    id: Int
   }
 `;
 
@@ -54,8 +68,11 @@ const resolvers = {
       const Authorization = req.headers.authorization;
       if (Authorization) {
         const token = Authorization.replace("Bearer ", "");
-        const verifiedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const verifiedToken = jwt.verify(token, publicKey, {
+          algorithms: ["RS256"]
+        });
         const user = await graphql
+          // @ts-ignore
           .request(ME, { id: verifiedToken.userId })
           .then((data: any) => {
             return data.users[0];
@@ -85,13 +102,12 @@ const resolvers = {
           "https://hasura.io/jwt/claims": {
             "x-hasura-allowed-roles": ["user"],
             "x-hasura-default-role": "user",
-            "x-hasura-user-id": user.id
+            "x-hasura-user-id": `${user.id}`
           }
         },
-        process.env.JWT_SECRET,
+        privateKey,
         { algorithm: "RS256" }
       );
-
       return { token };
     },
     login: async (

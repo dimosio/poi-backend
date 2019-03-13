@@ -1,0 +1,47 @@
+- args:
+    permission:
+      allow_aggregations: true
+      columns:
+      - id
+      - createdAt
+      - updatedAt
+      - authorId
+      - location
+      - name
+      - info_general
+      - info_architecture
+      - info_history
+      - info_events
+      - info_others
+      - info_references
+      - website
+      - cover_image
+      - is_online
+      filter: {}
+    role: anonymous
+    table:
+      name: pois
+      schema: public
+  type: create_select_permission
+- args:
+    role: anonymous
+    table:
+      name: pois
+      schema: public
+  type: drop_select_permission
+- args:
+    permission:
+      allow_aggregations: false
+      columns: []
+      filter: {}
+    role: user
+    table:
+      name: pois
+      schema: public
+  type: create_select_permission
+- args:
+    role: user
+    table:
+      name: pois
+      schema: public
+  type: drop_select_permission

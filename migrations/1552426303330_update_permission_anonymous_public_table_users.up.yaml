@@ -1,0 +1,15 @@
+- args:
+    permission:
+      allow_aggregations: false
+      columns:
+      - avatar
+      - email
+      - id
+      - username
+      filter: {}
+      limit: null
+    role: anonymous
+    table:
+      name: users
+      schema: public
+  type: create_select_permission

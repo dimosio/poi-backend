@@ -124,7 +124,6 @@ const resolvers = {
       if (!user) throw new Error("No such user found.");
 
       const valid = await bcrypt.compare(password, user.password);
-
       if (valid) {
         const token = jwt.sign(
           {
@@ -132,10 +131,11 @@ const resolvers = {
             "https://hasura.io/jwt/claims": {
               "x-hasura-allowed-roles": ["user"],
               "x-hasura-default-role": "user",
-              "x-hasura-user-id": user.id
+              "x-hasura-user-id": `${user.id}`
             }
           },
-          process.env.JWT_SECRET
+          privateKey,
+          { algorithm: "RS256" }
         );
 
         return { token };
